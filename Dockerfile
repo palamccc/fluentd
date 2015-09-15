@@ -8,4 +8,4 @@ RUN sh -c "curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 VOLUME [ "/fluentd" ]
 EXPOSE 24224
-CMD [ "td-agent", "--no-supervisor", "--config", "/fluentd/fluentd.conf" ]
+CMD [ "td-agent", "--no-supervisor", "--config", "/fluentd.conf" ]
