@@ -6,6 +6,6 @@ RUN sh -c "curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add
     && td-agent-gem install fluent-plugin-logzio --no-ri --no-rdoc -V \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-VOLUME [ "/flogs" ]
+VOLUME [ "/fluentd" ]
 EXPOSE 24224
-CMD [ "td-agent", "--no-supervisor", "--config", "/flogs/fluentd.conf" ]
+CMD [ "td-agent", "--no-supervisor", "--config", "/fluentd/fluentd.conf" ]
