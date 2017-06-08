@@ -6,7 +6,7 @@ RUN apk --no-cache --update add \
                             ruby-irb \
                             ruby-dev && \
     echo 'gem: --no-document' >> /etc/gemrc && \
-    gem install fluentd -v 0.12.26 && \
+    gem install fluentd -v '~> 0.12.0' && \
     gem install fluent-plugin-google-cloud && \
     apk del build-base ruby-dev && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* && \
