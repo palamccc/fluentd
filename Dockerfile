@@ -8,7 +8,6 @@ RUN apt-get update && \
   apt-get autoremove -y && \
   rm -rf /tmp/* /var/lib/gems/*/cache /root/.gem && \
   ls -d /var/lib/gems/*/gems/google-api-client-*/generated/google/apis/* | grep -v logging | xargs rm -Rf && \
-  rm -Rf /var/lib/gems/*/gems/grpc-*/src && \
   rm -Rf /var/lib/dpkg /var/log/apt /var/log/apt
 ADD fluent.conf /fluentd/etc/fluent.conf
 EXPOSE 24224
