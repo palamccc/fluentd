@@ -1,16 +1,15 @@
-FROM alpine:latest
-RUN apk --no-cache --update add \
-                            build-base \
-                            ca-certificates \
-                            ruby \
-                            ruby-irb \
-                            ruby-dev && \
-    echo 'gem: --no-document' >> /etc/gemrc && \
-    gem install fluentd -v '~> 0.12.0' && \
-    gem install fluent-plugin-google-cloud && \
-    apk del build-base ruby-dev && \
-    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* && \
-    ls -d /usr/lib/ruby/gems/*/gems/google-api-client-*/generated/google/apis/* | grep -v logging_v1beta3 | xargs rm -Rf
+FROM debian:jessie-slim
+# install necessary and delete unnecessary to reduce docker image
+RUN apt-get update && \
+  apt-get install -y ruby ruby-dev gcc make && \
+  gem install fluentd -v '~> 0.12.0' --no-ri --no-rdoc && \
+  gem install fluent-plugin-google-cloud --no-ri --no-rdoc && \
+  apt-get remove -y ruby-dev gcc make && \
+  apt-get autoremove -y && \
+  rm -rf /tmp/* /var/lib/gems/*/cache /root/.gem && \
+  ls -d /var/lib/gems/*/gems/google-api-client-*/generated/google/apis/* | grep -v logging | xargs rm -Rf && \
+  rm -Rf /var/lib/gems/2.1.0/gems/grpc-*/src && \
+  rm -Rf /var/lib/dpkg /var/log/apt /var/log/apt
 ADD fluent.conf /fluentd/etc/fluent.conf
 EXPOSE 24224
 CMD ["fluentd", "--config", "/fluentd/etc/fluent.conf"]
