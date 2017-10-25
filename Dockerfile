@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 # install necessary and delete unnecessary to reduce docker image
 RUN apt-get update && \
   apt-get install -y ruby ruby-dev gcc make && \
